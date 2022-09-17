@@ -1,4 +1,4 @@
-export const BASE_URL = 'http://api.ptica8.mesto.nomoredomains.sbs/';
+export const BASE_URL = 'http://api.ptica8.mesto.nomoredomains.sbs';
 
 const checkResponse = (response) => {
     return response.ok ? response.json() : Promise.reject(`Error ${response.status}`);
