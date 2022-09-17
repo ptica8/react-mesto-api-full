@@ -1,0 +1,9 @@
+.popup__signin_link {
+    text-decoration: none;
+    cursor: pointer;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+    color: #FFFFFF;
+}

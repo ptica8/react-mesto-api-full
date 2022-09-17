@@ -1,0 +1,10 @@
+.popup__input_type_sign {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    border: 0;
+    color: #CCCCCC;
+    background-color: black;
+    border-bottom: 1px solid #CCCCCC;
+    gap: 30px;
+}

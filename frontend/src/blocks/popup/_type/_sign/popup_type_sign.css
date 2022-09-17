@@ -1,0 +1,7 @@
+.popup_type_sign {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    visibility: visible;
+}

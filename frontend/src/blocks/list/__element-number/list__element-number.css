@@ -1,0 +1,13 @@
+.list__element-number {
+    width: 10px;
+    max-height: 13px;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 16px;
+    text-align: center;
+    align-self: center;
+    color: #000000;
+    padding: 0 6px 0;
+}
+
+

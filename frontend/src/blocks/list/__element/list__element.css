@@ -1,0 +1,16 @@
+.list__element {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    border-radius: 10px;
+    background-color: #FFFFFF;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+@media screen and (max-width: 900px) {
+    .list__element {
+        margin: 0 auto;
+    }
+}

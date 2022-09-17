@@ -1,0 +1,9 @@
+.popup__welcome {
+    font-weight: 900;
+    font-size: 24px;
+    line-height: 29px;
+    text-align: center;
+    color: #FFFFFF;
+    margin: 0 auto;
+    padding: 60px 0 50px;
+}

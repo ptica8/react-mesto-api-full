@@ -1,0 +1,8 @@
+.list__element-likes {
+     align-self: center;
+     justify-content: center;
+     display: grid;
+     gap: 3px;
+     max-width: 22px;
+     margin-left: auto;
+ }
