@@ -13,7 +13,14 @@ const serverError = require('./middlewares/serverError');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const app = express();
-app.use(cors());
+
+const corsOptions = {
+    origin: 'https://ptica8.mesto.nomoredomains.sbs',
+    credentials: true,
+    optionsSuccessStatus: 200,
+};
+
+app.use(cors(corsOptions))
 
 mongoose
   .connect('mongodb://localhost:27017/mestodb')
