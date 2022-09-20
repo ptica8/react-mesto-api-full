@@ -14,7 +14,7 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const app = express();
 
-app.use(cors)
+app.use(cors());
 
 mongoose
   .connect('mongodb://localhost:27017/mestodb')
