@@ -1,3 +1,5 @@
+import { BASE_URL } from './auth';
+
 class Api {
     constructor(config) {
         this._url = config.url;
@@ -80,9 +82,9 @@ class Api {
 }
 
 export const api = new Api({
-    url: 'https://nomoreparties.co/v1/cohort-41',
+    url: BASE_URL,
     headers: {
-        Authorization: '64093150-cd2b-4857-920b-cb790fed6f1f',
+        authorization: `Bearer ${localStorage.getItem('token')}`,
         'Content-Type': 'application/json'
     }
 })
