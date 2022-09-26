@@ -12,7 +12,7 @@ import Register from './Register';
 import Login from './Login';
 import InfoTooltip from "./InfoTooltip";
 import * as auth from '../utils/auth.js';
-import {api} from '../utils/api.js';
+import {apiGetter} from '../utils/api.js';
 import {CurrentUserContext} from '../contexts/CurrentUserContext';
 
 function App() {
@@ -30,18 +30,8 @@ function App() {
         username: '',
         email: ''
     });
-    const [token, setToken] = useState('');
     const navigate = useNavigate();
-
-    useEffect(() => {
-        if (loggedIn === true) {
-            api.getUserInfo()
-                .then((userInfo) => {
-                    setCurrentUser({name: userInfo.data.name, about: userInfo.data.about, avatar: userInfo.data.avatar, _id: userInfo.data._id})
-                })
-                .catch(err => console.log(err));
-            }
-    }, [loggedIn])
+    const api = apiGetter(localStorage.getItem('token'));
 
     useEffect(() => {
         if (loggedIn === true) {
@@ -53,20 +43,15 @@ function App() {
         }
     }, [loggedIn])
 
-
     //проверка токена при кд загрузке стр
     useEffect(() => {
         handleTokenCheck();
-    }, [handleTokenCheck])
+    }, [loggedIn])
 
     function handleTokenCheck() {
         let jwt = localStorage.getItem('token');
-      //  console.log('localStorage.getItem:', jwt)
         if (jwt) {
-           // console.log('jwt:', jwt)
-            setToken(jwt);
-           // console.log('setToken:', jwt)
-            auth.getContent(jwt)
+            api.getUserInfo()
                 .then((res) => {
                     if (res.data.email) {
                         setUserData({
@@ -74,6 +59,7 @@ function App() {
                             email: res.data.email
                         })
                         setLoggedIn(true);
+                        setCurrentUser({name: res.data.name, about: res.data.about, avatar: res.data.avatar, _id: res.data._id})
                         navigate('/');
                     }
                 })
@@ -92,7 +78,7 @@ function App() {
 
     function handleCardDelete(card) {
         const isOwn = card.owner === currentUser._id;
-        api.deleteCard(card._id, auth.getContent)
+        api.deleteCard(card._id)
             .then(() => {
                 setCards((state) => state.filter((c) => c._id === card._id ? '' : c));
             })
@@ -190,7 +176,6 @@ function App() {
                 if (res.token) {
                     setInfoTooltipPopupOpen(false);
                     localStorage.setItem('token', res.token);
-                    handleTokenCheck();
                     setLoggedIn(true);
                     navigate('/');
                 }
@@ -203,12 +188,11 @@ function App() {
     }
 
     function handleLogOut() {
-        localStorage.removeItem('token'); // or clear()
+        localStorage.removeItem('token');
         setUserData({
             username: '',
             email: '',
         });
-        setToken('');
         setLoggedIn(false);
         navigate('/signin');
     }

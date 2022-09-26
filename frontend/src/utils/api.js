@@ -81,10 +81,12 @@ class Api {
     }
 }
 
-export const api = new Api({
-    url: BASE_URL,
-    headers: {
-        authorization: `Bearer ${localStorage.getItem('token')}`,
-        'Content-Type': 'application/json'
-    }
-})
+export const apiGetter = (token) => {
+  return new Api({
+        url: BASE_URL,
+        headers: {
+            authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json'
+        }
+    })
+}
