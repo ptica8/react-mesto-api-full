@@ -5,6 +5,7 @@ const User = require('../models/users');
 const BadRequestError = require('../errors/BadRequestError');
 const NotFoundError = require('../errors/NotFoundError');
 const DuplicateError = require('../errors/DuplicateError');
+const JWT_SECRET = require('../middlewares/config');
 
 module.exports.getUsers = async (req, res, next) => {
   await User.find({})
@@ -105,7 +106,7 @@ module.exports.login = (req, res, next) => {
   return User.findUserByCredentials(email, password)
     .then((user) => {
       const token = jwt.sign(
-        { _id: user._id }, process.env.JWT_SECRET || 'my-secret-key',
+        { _id: user._id }, JWT_SECRET,
         { expiresIn: '7d' },
       );
       res.send({ token });
