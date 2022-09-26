@@ -53,17 +53,19 @@ function App() {
         }
     }, [loggedIn])
 
+
+    //проверка токена при кд загрузке стр
     useEffect(() => {
         handleTokenCheck();
-    }, [loggedIn])
+    }, [handleTokenCheck])
 
     function handleTokenCheck() {
         let jwt = localStorage.getItem('token');
-        console.log('localStorage.getItem:', jwt)
+      //  console.log('localStorage.getItem:', jwt)
         if (jwt) {
-            console.log('jwt:', jwt)
+           // console.log('jwt:', jwt)
             setToken(jwt);
-            console.log('setToken:', jwt)
+           // console.log('setToken:', jwt)
             auth.getContent(jwt)
                 .then((res) => {
                     if (res.data.email) {
@@ -196,6 +198,7 @@ function App() {
             .catch(() => {
                 handleInfoTooltipPopup()
                 setSuccess(false);
+                setLoggedIn(false);
             })
     }
 
