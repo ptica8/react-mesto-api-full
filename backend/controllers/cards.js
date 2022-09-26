@@ -3,8 +3,8 @@ const BadRequestError = require('../errors/BadRequestError');
 const NotFoundError = require('../errors/NotFoundError');
 const ForbiddenError = require('../errors/ForbiddenError');
 
-module.exports.getCards = (req, res, next) => {
-  Card.find({})
+module.exports.getCards = async (req, res, next) => {
+  await Card.find({})
     .then((cards) => res.send(cards))
     .catch(next);
 };

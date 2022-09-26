@@ -6,8 +6,8 @@ const BadRequestError = require('../errors/BadRequestError');
 const NotFoundError = require('../errors/NotFoundError');
 const DuplicateError = require('../errors/DuplicateError');
 
-module.exports.getUsers = (req, res, next) => {
-  User.find({})
+module.exports.getUsers = async (req, res, next) => {
+  await User.find({})
     .then((users) => res.send(users))
     .catch(next);
 };
