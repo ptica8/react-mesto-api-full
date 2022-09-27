@@ -1,6 +1,8 @@
 const jwt = require('jsonwebtoken');
 const UnauthorizedError = require('../errors/UnauthorizedError');
 require('dotenv').config();
+const { NODE_ENV, JWT_SECRET } = process.env;
+console.log('process.env.NODE_ENV:', process.env.NODE_ENV)
 
 // eslint-disable-next-line consistent-return
 const auth = (req, res, next) => {
@@ -11,7 +13,7 @@ const auth = (req, res, next) => {
   const token = authorization.replace('Bearer ', '');
   let payload;
   try {
-    payload = jwt.verify(token, process.env.JWT_SECRET || 'my-secret-key');
+    payload = jwt.verify(token, NODE_ENV === 'production' ? JWT_SECRET : 'my-secret-key');
   } catch (err) {
     return next(new UnauthorizedError('Необходима авторизация'));
   }
@@ -21,7 +23,7 @@ const auth = (req, res, next) => {
 
 module.exports = auth;
 
-const YOUR_JWT = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzMzNDlhMTg3OTZhZjQ2NzZlODc0MTEiLCJpYXQiOjE2NjQzMDU1NzIsImV4cCI6MTY2NDkxMDM3Mn0.k5QAqhC-VasInuZeBZrOBY41YccO8kZXg9vgikjMaOU'; // вставьте сюда JWT, который вернул публичный сервер
+const YOUR_JWT = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzMzNTgyNTQxMzBlYjdhMmRjOWY2OTciLCJpYXQiOjE2NjQzMDkyOTIsImV4cCI6MTY2NDkxNDA5Mn0.BgscIbVHLnRM0lbqdPZNl7R46MQ-NI_R4LWf2dQoZlo'; // вставьте сюда JWT, который вернул публичный сервер
 const SECRET_KEY_DEV = 'my-secret-key'; // вставьте сюда секретный ключ для разработки из кода
 try {
   const payload = jwt.verify(YOUR_JWT, SECRET_KEY_DEV);
