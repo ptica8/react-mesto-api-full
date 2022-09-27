@@ -6,7 +6,8 @@ const User = require('../models/users');
 const BadRequestError = require('../errors/BadRequestError');
 const NotFoundError = require('../errors/NotFoundError');
 const DuplicateError = require('../errors/DuplicateError');
-const { NODE_ENV, JWT_SECRET} = process.env;
+
+const { NODE_ENV, JWT_SECRET } = process.env;
 
 module.exports.getUsers = async (req, res, next) => {
   await User.find({})
@@ -108,7 +109,7 @@ module.exports.login = (req, res, next) => {
     .then((user) => {
       const token = jwt.sign(
         { _id: user._id },
-          NODE_ENV === 'production' ? JWT_SECRET : 'my-secret-key',
+        NODE_ENV === 'production' ? JWT_SECRET : 'my-secret-key',
         { expiresIn: '7d' },
       );
       res.send({ token });
