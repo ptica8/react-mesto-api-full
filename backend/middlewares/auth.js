@@ -10,8 +10,7 @@ const auth = (req, res, next) => {
   const token = authorization.replace('Bearer ', '');
   let payload;
   try {
-    payload = jwt.verify(token, NODE_ENV === 'production' ? process.env.JWT_SECRET : 'my-secret-key');
-    console.log(process.env.JWT_SECRET)
+    payload = jwt.verify(token,  process.env.JWT_SECRET || 'my-secret-key');
   } catch (err) {
     return next(new UnauthorizedError('Необходима авторизация'));
   }
